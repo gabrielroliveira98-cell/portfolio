@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Rodrigues de Oliveira — Desenvolvedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1117;
+    --panel:#151B23;
+    --panel-hover:#1B2330;
+    --border:#232B36;
+    --text:#E6EDF3;
+    --muted:#7D8590;
+    --amber:#E3B341;
+    --add:#3FB950;
+    --del:#F85149;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--amber);color:var(--ink);}
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(13,17,23,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:56px;
+  }
+  .nav-brand{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--amber);}
+  .nav-links{display:flex;gap:24px;font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links .dot{color:var(--add);}
+
+  /* HERO */
+  header.hero{padding:100px 0 70px;}
+  .prompt-line{
+    font-family:var(--mono);font-size:13px;color:var(--muted);
+    margin-bottom:18px;display:flex;align-items:center;gap:8px;
+  }
+  .prompt-line .sigil{color:var(--add);}
+  .cursor{
+    display:inline-block;width:8px;height:16px;background:var(--amber);
+    animation:blink 1s step-end infinite;vertical-align:text-bottom;
+  }
+  @keyframes blink{50%{opacity:0;}}
+  h1{
+    font-family:var(--mono);
+    font-size:clamp(32px,5.5vw,52px);
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1.15;
+    margin-bottom:14px;
+  }
+  h1 .accent{color:var(--amber);}
+  .tagline{
+    font-size:19px;color:var(--muted);max-width:560px;margin-bottom:32px;
+  }
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:13px;font-weight:500;
+    padding:10px 18px;border-radius:6px;border:1px solid var(--border);
+    transition:all .15s ease;
+  }
+  .btn-primary{background:var(--amber);color:var(--ink);border-color:var(--amber);}
+  .btn-primary:hover{background:#f0c565;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--muted);background:var(--panel);}
+
+  /* SECTION HEADERS */
+  section{padding:60px 0;}
+  .section-head{
+    display:flex;align-items:baseline;gap:12px;margin-bottom:32px;
+    border-bottom:1px solid var(--border);padding-bottom:14px;
+  }
+  .section-head .file{
+    font-family:var(--mono);font-size:13px;color:var(--muted);
+  }
+  .section-head h2{
+    font-family:var(--mono);font-size:22px;font-weight:700;
+  }
+
+  /* PROJECTS = commit log */
+  .commit{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:22px 24px;
+    margin-bottom:16px;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .commit:hover{border-color:var(--amber);transform:translateX(2px);}
+  .commit-top{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;margin-bottom:10px;flex-wrap:wrap;
+  }
+  .commit-hash{
+    font-family:var(--mono);font-size:12px;color:var(--amber);
+    background:rgba(227,179,65,0.1);padding:2px 8px;border-radius:4px;
+  }
+  .commit-stats{font-family:var(--mono);font-size:12px;color:var(--muted);}
+  .commit-stats .add{color:var(--add);}
+  .commit-stats .del{color:var(--del);}
+  .commit-title{font-size:18px;font-weight:600;margin-bottom:8px;}
+  .commit-desc{color:var(--muted);font-size:14.5px;margin-bottom:14px;}
+  .commit-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .tag{
+    font-family:var(--mono);font-size:11px;color:var(--text);
+    background:var(--ink);border:1px solid var(--border);
+    padding:3px 9px;border-radius:100px;
+  }
+  .commit-links{display:flex;gap:16px;font-family:var(--mono);font-size:13px;}
+  .commit-links a{color:var(--text);border-bottom:1px solid var(--border);}
+  .commit-links a:hover{color:var(--amber);border-color:var(--amber);}
+
+  /* SKILLS = package.json */
+  .code-block{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:24px 28px;font-family:var(--mono);font-size:13.5px;overflow-x:auto;
+  }
+  .code-block .k{color:#79C0FF;}
+  .code-block .s{color:var(--add);}
+  .code-block .p{color:var(--muted);}
+  .code-block .bracket{color:var(--text);}
+  .code-line{white-space:pre;}
+
+  /* ABOUT */
+  .about-text{font-size:16px;color:var(--text);max-width:640px;}
+  .about-text p{margin-bottom:16px;color:#C9D1D9;}
+  .about-text strong{color:var(--amber);font-weight:600;}
+
+  /* CONTACT */
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+  }
+  .contact-card{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:18px 20px;display:flex;flex-direction:column;gap:4px;
+    transition:border-color .15s ease;
+    min-width:0;
+  }
+  .contact-card:hover{border-color:var(--amber);}
+  .contact-card .label{font-family:var(--mono);font-size:11px;color:var(--muted);}
+  .contact-card .value{
+    font-size:15px;font-weight:600;
+    overflow-wrap:anywhere;word-break:break-word;
+  }
+
+  footer{
+    padding:40px 0;border-top:1px solid var(--border);
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    text-align:center;
+  }
+
+  @media(max-width:640px){
+    .nav-links{gap:14px;font-size:11px;}
+    header.hero{padding:70px 0 50px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cursor{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-brand">~/gabriel-oliveira</div>
+    <div class="nav-links">
+      <a href="#projetos"><span class="dot">●</span> projetos</a>
+      <a href="#skills"><span class="dot">●</span> skills</a>
+      <a href="#sobre"><span class="dot">●</span> sobre</a>
+      <a href="#contato"><span class="dot">●</span> contato</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="prompt-line"><span class="sigil">➜</span> whoami</div>
+    <h1>Gabriel Rodrigues<br>de Oliveira<br><span class="accent">Desenvolvedor Full Stack</span></h1>
+    <p class="tagline">
+      Construo produtos web do zero — do banco de dados à interface.
+      Foco em código legível, performance e resolver problemas reais.
+      <span class="cursor"></span>
+    </p>
+    <div class="hero-cta">
+      <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+      <a href="https://github.com/gabrielroliveira98-cell" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+      <a href="#contato" class="btn btn-ghost">Contato</a>
+    </div>
+  </div>
+</header>
+
+<section id="projetos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="file">git log --oneline</span>
+      <h2>Projetos</h2>
+    </div>
+
+    <!-- COMMIT / ERGOWORK -->
+    <div class="commit">
+      <div class="commit-top">
+        <span class="commit-hash">178799d</span>
+        <span class="commit-stats"><span class="add">+540</span> <span class="del">-30</span></span>
+      </div>
+      <div class="commit-title">ErgoHome — Gestão de Ergonomia e Bem-estar</div>
+      <p class="commit-desc">
+        Plataforma web em Flask para acompanhamento de saúde ocupacional: checklist
+        ergonômico diário, registro de ponto com câmera, exercícios laborais com
+        vídeo, upload de mídias e painel administrativo, com login via Google OAuth.
+      </p>
+      <div class="commit-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Flask</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">Google OAuth</span>
+      </div>
+      <div class="commit-links">
+        <a href="https://github.com/gabrielroliveira98-cell/ergowork" target="_blank" rel="noopener">→ Código fonte</a>
+      </div>
+    </div>
+
+    <!-- COMMIT / SENSETECH -->
+    <div class="commit">
+      <div class="commit-top">
+        <span class="commit-hash">7e21b04</span>
+        <span class="commit-stats"><span class="add">+189</span> <span class="del">-12</span></span>
+      </div>
+      <div class="commit-title">SenseBin — Monitoramento Inteligente de Lixeiras (SenseTech)</div>
+      <p class="commit-desc">
+        Landing page de um produto AIoT desenvolvido em equipe: sensor ultrassônico
+        mede o nível de preenchimento da lixeira em tempo real e notifica
+        automaticamente a equipe de limpeza, reduzindo desperdício e otimizando rotas.
+      </p>
+      <div class="commit-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">AIoT</span>
+      </div>
+      <div class="commit-links">
+        <a href="https://github.com/gabrielroliveira98-cell/sensetech" target="_blank" rel="noopener">→ Código fonte</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="file">package.json</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="code-block">
+<div class="code-line"><span class="bracket">{</span></div>
+<div class="code-line">  <span class="k">"linguagens"</span>: [<span class="s">"Python"</span>, <span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JavaScript"</span>],</div>
+<div class="code-line">  <span class="k">"backend"</span>: [<span class="s">"Flask"</span>, <span class="s">"SQLAlchemy"</span>, <span class="s">"Google OAuth"</span>],</div>
+<div class="code-line">  <span class="k">"dados"</span>: [<span class="s">"Power BI"</span>, <span class="s">"Excel"</span>, <span class="s">"Análise de dados"</span>, <span class="s">"SQLite"</span>],</div>
+<div class="code-line">  <span class="k">"outros"</span>: [<span class="s">"IoT"</span>, <span class="s">"Lógica de programação"</span>, <span class="s">"Pacote Office"</span>],</div>
+<div class="code-line">  <span class="k">"formacao"</span>: <span class="s">"ADS (Análise e Desenvolvimento de Sistemas) — UNINOVE"</span>,</div>
+<div class="code-line">  <span class="k">"comportamental"</span>: [<span class="s">"Liderança de equipe"</span>, <span class="s">"Organização"</span>, <span class="s">"Proatividade"</span>]</div>
+<div class="code-line"><span class="bracket">}</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="file">README.md</span>
+      <h2>Sobre</h2>
+    </div>
+    <div class="about-text">
+      <p>
+        Sou estudante de <strong>Análise e Desenvolvimento de Sistemas (ADS)</strong>
+        na UNINOVE e atuo hoje como Auxiliar de Tráfego, coordenando equipe e
+        trabalhando com controle operacional, indicadores e relatórios no
+        dia a dia. Foi nesse contato constante com planilhas, dados e processos
+        que percebi que queria construir as próprias ferramentas em vez de só
+        usá-las — e foi isso que me levou para a programação.
+      </p>
+      <p>
+        Coloquei essa vontade em prática em dois projetos: o
+        <strong>ErgoHome</strong>, uma plataforma em Flask para gestão de
+        ergonomia e bem-estar no trabalho (checklist, ponto, exercícios e
+        login com Google), e o <strong>SenseBin</strong>, parte de um projeto
+        de equipe de AIoT para monitoramento inteligente de lixeiras. Tenho
+        também formação em Power BI e Excel, o que me ajuda a pensar em dados
+        desde a concepção do sistema. Busco agora oportunidades como
+        <strong>desenvolvedor em formação</strong>, unindo programação e
+        análise de dados.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="file">git remote -v</span>
+      <h2>Contato</h2>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:gabrielroliveira98@gmail.com">
+        <span class="label">EMAIL</span>
+        <span class="value">gabrielroliveira98@gmail.com</span>
+      </a>
+      <a class="contact-card" href="mailto:gabrielrodriguesdev08@gmail.com">
+        <span class="label">EMAIL (DEV)</span>
+        <span class="value">gabrielrodriguesdev08@gmail.com</span>
+      </a>
+      <a class="contact-card" href="https://github.com/gabrielroliveira98-cell" target="_blank" rel="noopener">
+        <span class="label">GITHUB</span>
+        <span class="value">@gabrielroliveira98-cell</span>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/gabriel-r-oliveira-dev" target="_blank" rel="noopener">
+        <span class="label">LINKEDIN</span>
+        <span class="value">/in/gabriel-r-oliveira-dev</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Gabriel Rodrigues de Oliveira — build 2026 · feito com HTML, CSS e café
+  </div>
+</footer>
+
+</body>
+</html>
