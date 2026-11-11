@@ -22,5 +22,5 @@ Gestão de Sinistros (CPLU), Sinistros SaaS, Patrimônio+, ErgoWork, ALTIER Barb
 ## 📬 Contato
 
 - LinkedIn: [/in/gabriel-r-oliveira-dev](https://www.linkedin.com/in/gabriel-r-oliveira-dev)
-- E-mail: gabrielrodriguesdev08@gmail.com
+- E-mail: gabrielroliveira98@gmail.com
 - WhatsApp: [(11) 95583-8101](https://wa.me/5511955838101)
